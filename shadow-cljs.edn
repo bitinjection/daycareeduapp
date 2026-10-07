@@ -1,0 +1,21 @@
+;; Dependency management lives here rather than in deps.edn so that the only
+;; prerequisites for this project are a JDK and Node. Add a deps.edn later if
+;; we grow a JVM-side component that needs to share the pure namespaces.
+{:source-paths
+ ["src/main" "src/test" "dev"]
+
+ :dependencies
+ [[org.clojure/test.check "1.1.1"]
+  [dev.weavejester/cljfmt "0.13.1"]]
+
+ :builds
+ ;; CI target: compile, then `node target/test.js` so the exit code is reliable.
+ {:test       {:target    :node-test
+               :output-to "target/test.js"
+               :ns-regexp "-test$"}
+
+  ;; Dev loop: `npm run test:watch` recompiles and reruns on every save.
+  :test-watch {:target    :node-test
+               :output-to "target/test-watch.js"
+               :ns-regexp "-test$"
+               :autorun   true}}}

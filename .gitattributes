@@ -1,0 +1,21 @@
+# Keep LF in the working tree on every platform, not just in the repository.
+#
+# With git's default autocrlf on Windows, checked-out source gets CRLF while
+# cljfmt normalizes to LF — so `npm run fmt:check` would report every file as
+# misformatted immediately after a fresh clone. Forcing eol=lf keeps Windows,
+# macOS and the Linux CI runner byte-identical.
+* text=auto eol=lf
+
+# Assets, once we have them.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.mp3  binary
+*.m4a  binary
+*.wav  binary
+*.ttf  binary
+*.otf  binary
+*.woff binary
+*.woff2 binary

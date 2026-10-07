@@ -1,0 +1,16 @@
+{:linters
+ ;; Unresolved symbols are the linter that actually catches typos in cljs.
+ {:unresolved-symbol    {:level :error}
+  :unused-binding       {:level :warning}
+  :unused-namespace     {:level :warning}
+  :shadowed-var         {:level :warning}
+  :missing-docstring    {:level :off}
+  ;; Namespaces are required in a sorted, one-per-line :require block by
+  ;; convention here; cljfmt does not enforce it, so let clj-kondo say so.
+  :unsorted-required-namespaces {:level :warning}}
+
+ :lint-as
+ {clojure.test.check.clojure-test/defspec clojure.test/deftest}
+
+ :output
+ {:progress false}}

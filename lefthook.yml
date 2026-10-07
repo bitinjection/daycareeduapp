@@ -1,0 +1,19 @@
+# Local gates. Deliberately asymmetric: pre-commit must stay fast enough that
+# you never want to skip it, so the test suite runs on push instead.
+#
+# Installed with `npx lefthook install`. To bypass once: `git commit --no-verify`.
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.{clj,cljs,cljc,edn}"
+      run: npx clj-kondo --lint {staged_files}
+    format:
+      glob: "*.{clj,cljs,cljc,edn}"
+      run: npm run fmt:check
+
+pre-push:
+  commands:
+    test:
+      run: npm test
