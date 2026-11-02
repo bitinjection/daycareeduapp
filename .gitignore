@@ -1,4 +1,5 @@
 # Build output
+/app
 /target
 /.shadow-cljs
 /.cpcache

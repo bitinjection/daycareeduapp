@@ -31,10 +31,10 @@ ClojureScript with the usual toolchain for this kind of app (see the README).
 
 ## Where we are
 
-Stages 0–4 are done. **Next is stage 5**: Expo + shadow-cljs `:react-native`,
-"Hello" on the emulator with hot reload. Stock Expo SDK 58 has already built,
-run, and hot-reloaded on the `Tablet_API_30` emulator, so a stage 5 failure points
-at the seam, not the Android tooling. The first major task is Phase 1 of the README's build order, which gets the
+Stages 0–5 are done: ClojureScript renders through Expo SDK 58 on the
+`Tablet_API_30` emulator, and a save hot-reloads it. **Next is stage 6**: a
+development build on a real SGIN tablet, then an advanced-compiled release build.
+The first major task is Phase 1 of the README's build order, which gets the
 toolchain and development loop working through to a boilerplate student/teacher
 app on an Android emulator and a real Android tablet.
 
@@ -57,11 +57,20 @@ Current scope:
   workflow file has never run, so don't treat it as a gate before then. Until
   then, the gates are `npm run verify` and the lefthook hooks.
 
-Do stage 5 (the shadow-cljs ↔ Metro ↔ Expo seam) alone, with no other work in
-flight, so any breakage is attributable to it. If it fights us, the `:browser`
-target is the fallback.
+To start stage 6, the owner connects an SGIN tablet with USB debugging on. Read
+its real Android version and memory over `adb` before relying on it.
+
+The Android package ID in `app.config.js` is a placeholder. Choose the real one
+before the first store release, because the Play Store treats it as permanent.
 
 Assumptions to prove in Phase 1, not yet tested together:
+
+- **Advanced compilation.** Only development builds have run. Stage 6 tests the
+  release build, where missing externs would first show up.
+- **State surviving a hot reload.** After one save, Metro also re-bundled
+  `app/index.js` and shadow-cljs reported a new "ready", so both may reload the
+  code. There is no app state yet to show the effect. Test this in stage 7: change
+  re-frame state, save a file, and confirm the state is still there.
 
 - **Reagent 2.0.1 with React Native.** re-frame 1.4.7 declares Reagent 1.2.0,
   while React 19 needs Reagent 2.x, so pin 2.0.1 explicitly. Its source calls out

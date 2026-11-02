@@ -2,7 +2,11 @@
   "name": "daycareeduapp",
   "version": "0.0.1",
   "private": true,
+  "main": "app/index.js",
   "scripts": {
+    "app:watch": "shadow-cljs watch app",
+    "app:start": "expo start",
+    "app:android": "expo run:android",
     "test": "shadow-cljs compile test && node target/test.js",
     "test:watch": "shadow-cljs watch test",
     "lint": "clj-kondo --lint src dev",
@@ -14,5 +18,11 @@
     "clj-kondo": "^2025.10.23",
     "lefthook": "^2.1.17",
     "shadow-cljs": "^3.5.5"
+  },
+  "dependencies": {
+    "create-react-class": "^15.7.0",
+    "expo": "~58.0.22",
+    "react": "19.3.0",
+    "react-native": "0.88.1"
   }
 }
