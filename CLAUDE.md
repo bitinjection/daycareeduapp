@@ -31,8 +31,10 @@ ClojureScript with the usual toolchain for this kind of app (see the README).
 
 ## Where we are
 
-Stages 0–3 are done. **Next is stage 4**: the Android tooling alone, using the
-stock Expo template outside this repo. The first major task is Phase 1 of the README's build order, which gets the
+Stages 0–4 are done. **Next is stage 5**: Expo + shadow-cljs `:react-native`,
+"Hello" on the emulator with hot reload. Stock Expo SDK 58 has already built,
+run, and hot-reloaded on the `Tablet_API_30` emulator, so a stage 5 failure points
+at the seam, not the Android tooling. The first major task is Phase 1 of the README's build order, which gets the
 toolchain and development loop working through to a boilerplate student/teacher
 app on an Android emulator and a real Android tablet.
 
@@ -100,6 +102,15 @@ reasoning behind non-obvious choices. Don't commit or push unless asked.
 
 ## Environment gotchas
 
+- **Don't set `CI=1` when starting Metro for development.** With it set, an edit
+  never reached the app; without it, the same edit hot-reloaded in about 2s.
+- **Drive C is nearly full, and it's the only drive.** Check free space before
+  large installs or builds. A first native build took about 7.5 minutes and used
+  several GB.
+- **Stopping a background `expo start` can leave Metro running.** Check that port
+  8081 is free before restarting it.
+- The `Tablet_API_30` emulator is API 30, 64-bit, with no Google services, so it
+  would expose a hidden Play Services dependency.
 - Windows dev machine. Writing files from PowerShell with
   `Set-Content -Encoding utf8` adds a BOM, which the CLJS compiler reports as
   `Use of undeclared Var cljs.user/?` at line 1. Use the Write/Edit tools, or

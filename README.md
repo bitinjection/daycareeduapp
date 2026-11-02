@@ -86,7 +86,7 @@ Each stage changes one thing, so any breakage has one likely cause.
 - [x] **1** — shadow-cljs + `:node-test`, first activity logic written test-first
 - [x] **2** — clj-kondo, cljfmt, lefthook, GitHub Actions workflow (written, not yet run)
 - [x] **3** — close the gaps: Node 22.13+, `gh`, GitHub remote
-- [ ] **4** — Android tooling alone: stock Expo template, kept out of this repo, running on a tablet emulator
+- [x] **4** — Android tooling alone: stock Expo template, kept out of this repo, running on a tablet emulator
 - [ ] **5** — Expo + `:react-native` target: "Hello" on the emulator, with hot reload from a CLJS save ← *the risky one*
 - [ ] **6** — real Android tablet: development build with hot reload, then an advanced-compiled release build
 - [ ] **7** — app shell: Reagent + re-frame, first headless re-frame test
