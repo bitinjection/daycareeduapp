@@ -7,7 +7,7 @@ Educational activities for tablets, built in ClojureScript.
 | | Version | Note |
 |---|---|---|
 | JDK | **21+** | shadow-cljs bundles a Closure Compiler built for Java 21. Java 20 fails with `UnsupportedClassVersionError`. |
-| Node | 22 LTS | |
+| Node | **22.13+** | Minimum for Expo SDK 58 and React Native 0.88. |
 
 No Clojure CLI needed — dependencies are declared in `shadow-cljs.edn` and
 formatting runs through shadow-cljs's own JVM.
@@ -78,15 +78,42 @@ build when a release flag outlives its expiry date.
 
 Staged so that the one genuinely risky integration — the
 shadow-cljs ↔ Metro ↔ Expo seam — happens alone, with nothing else in flight.
+Each stage changes one thing, so any breakage has one likely cause.
+
+### Phase 1: toolchain and development loop
 
 - [x] **0** — git, JDK, Node
 - [x] **1** — shadow-cljs + `:node-test`, first activity logic written test-first
-- [x] **2** — clj-kondo, cljfmt, lefthook, GitHub Actions
-- [ ] **3** — Expo + `:react-native` target, "Hello" on a real tablet ← *the risky one*
-- [ ] **4** — Malli content-pack schemas
-- [ ] **5** — first real screen
-- [ ] **6** — persistence (expo-sqlite, UUIDv7, timestamps)
-- [ ] **7** — flag namespaces, grown-up gate
+- [x] **2** — clj-kondo, cljfmt, lefthook, GitHub Actions workflow (written, not yet run)
+- [ ] **3** — close the gaps: Node 22.13+, `gh`, GitHub remote
+- [ ] **4** — Android tooling alone: stock Expo template, kept out of this repo, running on a tablet emulator
+- [ ] **5** — Expo + `:react-native` target: "Hello" on the emulator, with hot reload from a CLJS save ← *the risky one*
+- [ ] **6** — real Android tablet: development build with hot reload, then an advanced-compiled release build
+- [ ] **7** — app shell: Reagent + re-frame, first headless re-frame test
+- [ ] **8** — boilerplate student/teacher app: one app with a role picker, placeholder screens, and session logic written test-first, with no networking
+- [ ] **9** — finish the loop: one command to start development, a local release-build check, setup proven from a clean clone
+- [ ] **10** — CI: turn on GitHub Actions, see it fail and then pass, add the release-build check, decide branch protection
 
-If stage 3 fights us, nothing downstream is built on it yet: the test loop and
+**Phase 1 is done when** the boilerplate app runs on an Android emulator and a
+real Android tablet, and CI is running. No server work starts before then.
+
+### Phase 2: teacher–student connection
+
+- [ ] **11** — server as a separate Clojure or ClojureScript project, connecting devices without a shared network; COPPA review
+
+### Phase 3: product
+
+- [ ] **12** — Malli content-pack schemas
+- [ ] **13** — first real screen
+- [ ] **14** — persistence (expo-sqlite, UUIDv7, timestamps)
+- [ ] **15** — flag namespaces, grown-up gate
+
+### Deferred, with no stage yet
+
+- **iOS and the App Store.** Android comes first, but the app stays ready for
+  iOS: `expo-*` packages only, and no Android-only behavior without an iOS plan.
+  Development stays on Windows, so iOS builds would use Expo's cloud build
+  service and run on an iPad, with an Apple Developer account.
+
+If stage 5 fights us, nothing downstream is built on it yet: the test loop and
 CI still work, and the `:browser` target is a fallback.
