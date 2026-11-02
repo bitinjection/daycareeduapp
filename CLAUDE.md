@@ -31,8 +31,8 @@ ClojureScript with the usual toolchain for this kind of app (see the README).
 
 ## Where we are
 
-Stages 0–2 are done. **Stage 3 is nearly done**: Node and `gh` are in place, and
-only the GitHub remote is left. The first major task is Phase 1 of the README's build order, which gets the
+Stages 0–3 are done. **Next is stage 4**: the Android tooling alone, using the
+stock Expo template outside this repo. The first major task is Phase 1 of the README's build order, which gets the
 toolchain and development loop working through to a boilerplate student/teacher
 app on an Android emulator and a real Android tablet.
 
@@ -49,9 +49,11 @@ Current scope:
   so keep avoiding anything that needs Google Play Services.
 - **One app for both roles.** The teacher and student views are the same app.
   The server will be a separate project.
-- **CI comes at stage 10.** The workflow file exists but has never run, so don't
-  treat it as a gate before then. Until then, the gates are `npm run verify` and
-  the lefthook hooks.
+- **The repo is public**: <https://github.com/bitinjection/daycareeduapp>. Never
+  commit child names or photos, home addresses, keys, or signing credentials.
+- **CI comes at stage 10.** GitHub Actions is turned off for the repo, and the
+  workflow file has never run, so don't treat it as a gate before then. Until
+  then, the gates are `npm run verify` and the lefthook hooks.
 
 Do stage 5 (the shadow-cljs ↔ Metro ↔ Expo seam) alone, with no other work in
 flight, so any breakage is attributable to it. If it fights us, the `:browser`
